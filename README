@@ -1,0 +1,124 @@
+# 🚀 Laboratorio – Automatización con AWS Step Functions
+
+## 📌 Descripción del proyecto
+
+Este laboratorio consiste en la implementación de una arquitectura serverless utilizando servicios de Amazon Web Services (AWS) para automatizar el procesamiento de pedidos mediante eventos.
+
+La solución integra AWS Lambda, AWS Step Functions, Amazon EventBridge y Amazon API Gateway, permitiendo recibir pedidos, generar eventos y ejecutar procesos automatizados.
+
+## 🛠️ Tecnologías y servicios utilizados
+
+- **AWS Lambda:** ejecución de funciones para procesar pedidos y realizar diferentes tareas.
+- **AWS Step Functions:** orquestación y coordinación de los procesos automatizados.
+- **Amazon EventBridge:** recepción y distribución de eventos para activar los flujos de trabajo.
+- **Amazon API Gateway:** exposición de un endpoint HTTP para recibir solicitudes externas.
+- **Postman:** herramienta utilizada para realizar pruebas y verificar el funcionamiento de la API.
+- **Python:** lenguaje utilizado para desarrollar las funciones Lambda.
+
+## ⚙️ Componentes implementados
+
+### 1. Funciones Lambda
+
+Se implementaron las siguientes funciones:
+
+| Función | Descripción |
+|---|---|
+| `receive-order-sebastianespinosa` | Recepción y procesamiento inicial de pedidos. |
+| `validate-order-sebastianespinosa` | Validación de la información del pedido. |
+| `register-audit-sebastianespinosa` | Registro de información para auditoría. |
+| `confirm-order-sebase` | Función relacionada con la confirmación del pedido. |
+| `check-inventory-sebase` | Función relacionada con la verificación del inventario. |
+| `process-payment-sebase` | Función relacionada con el procesamiento del pago. |
+
+### 2. AWS Step Functions
+
+Se creó una máquina de estados llamada:
+
+`step_sebastianEspinosa`
+
+Esta máquina permite organizar y coordinar la ejecución de diferentes procesos mediante un flujo de trabajo automatizado.
+
+### 3. Amazon EventBridge
+
+Se configuró una regla denominada:
+
+`rule-nuevo-pedido-sebastianespinosa`
+
+**Configuración del evento:**
+
+- Event bus: `default`
+- Tipo: Standard
+- Estado: Enabled
+- Fuente del evento: `demo.pedidos`
+- Tipo de detalle: `NuevoPedido`
+
+Esta regla permite identificar los eventos relacionados con la creación de nuevos pedidos.
+
+### 4. Amazon API Gateway
+
+Se creó una API denominada:
+
+`api-orders-sebastianespinosa`
+
+Su función es recibir solicitudes HTTP mediante el método POST y facilitar la comunicación con el sistema de procesamiento de pedidos.
+
+## 🧪 Pruebas con Postman
+
+Se realizó una prueba utilizando Postman para enviar un nuevo pedido mediante una solicitud HTTP POST.
+
+**Endpoint:**
+
+`https://8yhnflo5w4.execute-api.us-east-1.amazonaws.com/pedido`
+
+**Método HTTP:** POST
+
+**Body (JSON):**
+
+```json
+{
+    "cliente": "Johan",
+    "producto": "Laptop",
+    "cantidad": 1,
+    "total": 900
+}
+```
+
+### Resultado obtenido
+
+La solicitud fue procesada correctamente.
+
+**Código de respuesta:** `200 OK`
+
+**Respuesta del servidor:**
+
+```json
+{
+    "mensaje": "Pedido recibido y enviado al bus de eventos",
+    "orderId": "ID_GENERADO_POR_EL_SISTEMA"
+}
+```
+
+El resultado confirma que la API recibió el pedido y generó un identificador único para su seguimiento.
+
+## 🏗️ Arquitectura del proyecto
+
+La solución utiliza una arquitectura basada en eventos y servicios serverless de AWS.
+
+**Flujo general:**
+
+1. El cliente envía un pedido mediante Postman.
+2. API Gateway recibe la solicitud HTTP POST.
+3. El pedido se envía al bus de eventos de EventBridge.
+4. EventBridge identifica el evento `NuevoPedido`.
+5. La regla configurada permite activar el flujo de automatización.
+6. Step Functions coordina los procesos mediante las funciones Lambda implementadas.
+
+## 🎯 Objetivo del laboratorio
+
+Comprender e implementar una arquitectura serverless en AWS utilizando servicios de integración y automatización, permitiendo gestionar eventos y coordinar procesos relacionados con el procesamiento de pedidos.
+
+## 👨‍💻 Autor
+
+**Sebastian Espinosa**
+
+Laboratorio práctico de AWS – Automatización con Step Functions.
